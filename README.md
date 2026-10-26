@@ -21,7 +21,7 @@ A property search tool that aggregates listings from Daft.ie and MyHome.ie for D
 daft-tracker/
 ├── index.html          # Main app (single-file, no build step)
 ├── data/
-│   ├── daft_listings.csv
+│   ├── daft_listings.csv\
 │   └── myhome_listings.csv
 ├── scrapers/
 │   ├── daft_scraper.py
@@ -49,12 +49,13 @@ Output goes to `data/` folder automatically.
 
 ## Local Development
 
-Just open `index.html` in a browser. No build step required.
+No build step required, but the app must be served over HTTP. Opening `index.html` directly (`file://`) makes the browser block the `fetch()` calls for the CSV and timestamp files with a CORS error.
 
-For live reload:
 ```bash
-npx serve .
+python3 -m http.server 8000
 ```
+
+Then open http://localhost:8000. Alternatively, `npx serve .`
 
 ## Tests
 
