@@ -870,8 +870,10 @@ function renderTable() {
         // Property address with badges - address is clickable link
         const td3 = document.createElement('td');
         const addrDiv = document.createElement('div');
-        addrDiv.style.maxWidth = '280px';
+        addrDiv.style.maxWidth = '210px';
         const addrLink = document.createElement('a');
+        addrLink.className = 'addr-link';
+        addrLink.title = d.address;
         addrLink.href = d.url;
         addrLink.target = '_blank';
         addrLink.style.fontWeight = '500';
@@ -879,23 +881,20 @@ function renderTable() {
         addrLink.textContent = d.address.substring(0, 40) + (d.address.length > 40 ? '...' : '');
         addrDiv.appendChild(addrLink);
 
-        // Source badge
+        // Source badge leads the badge row so the address gets the full line
+        const badgeRow = document.createElement('div');
+        badgeRow.className = 'badge-row';
         const sourceBadge = document.createElement('span');
         sourceBadge.className = 'source-badge source-' + d.source;
         sourceBadge.textContent = d.source === 'daft' ? 'Daft' : 'MyHome';
-        addrDiv.appendChild(sourceBadge);
-
-        if (d.badges.length > 0) {
-            const badgeRow = document.createElement('div');
-            badgeRow.className = 'badge-row';
-            d.badges.forEach(function(b) {
-                const badge = document.createElement('span');
-                badge.className = 'badge badge-' + b.type;
-                badge.textContent = b.label;
-                badgeRow.appendChild(badge);
-            });
-            addrDiv.appendChild(badgeRow);
-        }
+        badgeRow.appendChild(sourceBadge);
+        d.badges.forEach(function(b) {
+            const badge = document.createElement('span');
+            badge.className = 'badge badge-' + b.type;
+            badge.textContent = b.label;
+            badgeRow.appendChild(badge);
+        });
+        addrDiv.appendChild(badgeRow);
         td3.appendChild(addrDiv);
         tr.appendChild(td3);
 

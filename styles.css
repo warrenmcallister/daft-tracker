@@ -36,7 +36,7 @@
         .header {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
-            padding: 14px 24px;
+            padding: 10px 24px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -53,7 +53,7 @@
         }
         .header h1 {
             font-family: 'Newsreader', serif;
-            font-size: 24px;
+            font-size: 21px;
             font-weight: 500;
             color: var(--text);
             display: flex;
@@ -84,29 +84,29 @@
         }
 
         .container {
-            padding: 24px;
+            padding: 12px 24px;
             max-width: 1600px;
             margin: 0 auto;
         }
 
-        /* Quick Insights Bar */
+        /* Quick Insights Bar (sits inside the filters header) */
         .insights-bar {
             display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 6px;
+            flex: 1;
             flex-wrap: wrap;
+            cursor: default;
         }
         .insight-chip {
             display: inline-flex;
             align-items: center;
-            padding: 8px 14px;
+            padding: 3px 10px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             color: var(--text-muted);
-            box-shadow: var(--shadow-sm);
         }
         .insight-chip.hot { border-color: var(--secondary); background: var(--secondary-light); color: var(--secondary); }
         .insight-chip.warn { border-color: var(--accent); background: var(--accent-light); color: #9A7340; }
@@ -116,15 +116,16 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 20px 24px;
-            margin-bottom: 16px;
+            padding: 12px 18px;
+            margin-bottom: 12px;
             box-shadow: var(--shadow-sm);
         }
         .filters-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            gap: 16px;
+            margin-bottom: 10px;
         }
         .filters-header h2 {
             font-size: 15px;
@@ -154,23 +155,23 @@
         .scrape-timestamp {
             font-size: 11px;
             color: var(--text-muted);
-            margin-left: 16px;
             white-space: nowrap;
         }
+        .filter-count { white-space: nowrap; }
 
         .filters-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             align-items: flex-end;
         }
         .filter-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            min-width: 140px;
+            gap: 4px;
+            min-width: 120px;
         }
-        .filter-group.wide { min-width: 180px; flex: 1; }
+        .filter-group.wide { min-width: 160px; flex: 1; }
         .filter-group label {
             font-size: 11px;
             font-weight: 500;
@@ -183,9 +184,9 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             color: var(--text);
-            padding: 10px 12px;
+            padding: 7px 10px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 13px;
             transition: all 0.15s;
         }
         .filter-group input:focus, .filter-group select:focus {
@@ -200,9 +201,9 @@
             color: white;
             border: none;
             border-radius: var(--radius-sm);
-            padding: 10px 20px;
+            padding: 8px 18px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.15s;
@@ -229,26 +230,30 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
+        /* Label on top, value and sub-text side by side */
         .stat-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            padding: 16px 18px;
+            padding: 8px 16px;
             box-shadow: var(--shadow-sm);
-            min-height: 90px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            column-gap: 10px;
+            align-items: baseline;
         }
         .stat-label {
+            grid-column: 1 / -1;
             font-size: 11px;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            margin-bottom: 6px;
         }
         .stat-value {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
             color: var(--text);
             letter-spacing: -0.5px;
@@ -256,7 +261,6 @@
         .stat-sub {
             font-size: 11px;
             color: var(--text-light);
-            margin-top: 4px;
         }
         .stat-card.highlight { border-left: 3px solid var(--primary); }
         .stat-card.highlight .stat-value { color: var(--primary); }
@@ -278,7 +282,7 @@
             box-shadow: var(--shadow-sm);
         }
         .card-header {
-            padding: 14px 18px;
+            padding: 10px 16px;
             border-bottom: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
@@ -294,15 +298,50 @@
         }
         .card-body { padding: 14px 18px; }
 
-        .map-card { margin-bottom: 16px; }
+        .map-card { margin-bottom: 12px; }
         #map { height: 300px; border-radius: 6px; overflow: hidden; background: var(--bg); }
+
+        /* Desktop: table and map side by side, filling the rest of the screen */
+        @media (min-width: 1025px) {
+            .workspace {
+                display: flex;
+                flex-direction: column;
+                /* viewport minus sticky header and container padding */
+                height: calc(100vh - 53px - 24px);
+                min-height: 600px;
+            }
+            .main-layout {
+                flex: 1;
+                min-height: 0;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 31%;
+                gap: 12px;
+            }
+            .main-layout .map-card {
+                grid-column: 2;
+                grid-row: 1;
+                margin-bottom: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            .main-layout .map-card .card-body { flex: 1; padding: 0; display: flex; }
+            .main-layout #map { flex: 1; height: auto; border-radius: 0; }
+            .main-layout .table-card {
+                grid-column: 1;
+                grid-row: 1;
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+            }
+            .main-layout .table-scroll { flex: 1; max-height: none; min-height: 0; }
+        }
 
         /* Charts section - collapsible */
         .charts-section {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            margin-bottom: 16px;
+            margin-top: 12px;
             overflow: hidden;
         }
         .section-header {
@@ -492,7 +531,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 18px;
+            padding: 8px 16px;
             border-bottom: 1px solid var(--border-light);
             gap: 12px;
             flex-wrap: wrap;
@@ -600,10 +639,17 @@
             font-size: 13px;
         }
         th, td {
-            padding: 14px 12px;
+            padding: 8px;
             text-align: left;
             border-bottom: 1px solid var(--border-light);
             vertical-align: middle;
+            white-space: nowrap;
+        }
+        /* Address on one line, truncated to the column width */
+        .addr-link {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         th {
             background: var(--surface);
@@ -637,7 +683,7 @@
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-            margin-top: 6px;
+            margin-top: 3px;
         }
         .badge {
             display: inline-flex;
@@ -666,6 +712,7 @@
             margin-left: 6px;
             vertical-align: middle;
         }
+        .badge-row .source-badge { margin-left: 0; }
         .source-daft { background: #E3F2FD; color: #1565C0; }
         .source-myhome { background: #E8F5E9; color: #2E7D32; }
 
@@ -827,10 +874,11 @@
             .container { padding: 12px; }
 
             .insights-bar { gap: 8px; }
-            .insight-chip { padding: 8px 12px; font-size: 12px; }
+            .insight-chip { padding: 4px 10px; font-size: 12px; }
 
             .filters-card { padding: 14px 16px; }
-            .filters-header { cursor: pointer; margin-bottom: 0; }
+            .filters-header { cursor: pointer; margin-bottom: 0; flex-wrap: wrap; gap: 8px; }
+            .filters-header .insights-bar { order: 3; flex-basis: 100%; }
             .filters-header h2 { font-size: 14px; }
             .filter-toggle-icon { display: inline-block; }
             .filters-collapsible {
@@ -851,7 +899,7 @@
             .btn-ghost { width: 100%; }
 
             .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .stat-card { padding: 14px; }
+            .stat-card { padding: 10px 14px; display: block; }
             .stat-label { font-size: 10px; }
             .stat-value { font-size: 22px; }
             .stat-sub { font-size: 11px; }
@@ -871,6 +919,7 @@
             .table-scroll { max-height: 400px; }
             table { font-size: 12px; }
             th, td { padding: 10px 8px; }
+            td { white-space: normal; }
             th:nth-child(5), td:nth-child(5),
             th:nth-child(6), td:nth-child(6),
             th:nth-child(7), td:nth-child(7) { display: none; }
